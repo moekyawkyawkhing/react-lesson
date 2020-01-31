@@ -22,7 +22,7 @@ export default class QuizDataList extends Component {
                            <div className="card">
                                <div className="card-body">
                                   {this.props.answers.map(data => (
-                                      <label htmlFor={`answer${data.id}`}>
+                                      <label htmlFor={`answer${data.id}`} key={data.id}>
                                           <input type="radio" name="answer" onClick={this.props.next_quiz} value={data.correct} id={`answer${data.id}`} className="ml-2"/> { data.name }
                                       </label>
                                   ))}

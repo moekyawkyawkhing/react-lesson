@@ -72,6 +72,7 @@ export default class Quiz extends Component {
                     'complete' : false
                 }
             ],
+            finish : false,
             scores : 0,
             timer : 25,
             pos : 0
@@ -85,7 +86,6 @@ export default class Quiz extends Component {
                 }
             ));
         }
-        console.log(this.sta)
     }
     
     render() {
@@ -94,8 +94,12 @@ export default class Quiz extends Component {
                 <div className="col-md-10 mx-auto">
                     <i>Time Allow : 25 seconds ( 5 Quizs )</i>
                 </div>
-
-                <QuizDataList next_quiz={this.nextQuiz} answers={this.state.quizs[this.state.pos].answers} question={this.state.quizs[this.state.pos].name} className="my-5"/>
+                {
+                    this.state.finish ?
+                    (<QuizScore />)
+                    :
+                    (<QuizDataList next_quiz={this.nextQuiz} answers={this.state.quizs[this.state.pos].answers} question={this.state.quizs[this.state.pos].name} className="my-5"/>)
+                }
                
            </div>
         )
