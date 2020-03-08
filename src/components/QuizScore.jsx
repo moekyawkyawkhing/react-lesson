@@ -9,7 +9,7 @@ export default class QuizScore extends Component {
                     <div className="card-body">
                         <i className="text-muted">Correct Answer : {this.props.correct_answer}</i>
                         <h3>Your Scores : {this.props.scores}</h3>
-                        {/* <button className="btn btn-sm btn-outline-primary" onClick={this.props.try_again}>Try Again</button> */}
+                        <button className="btn btn-sm btn-outline-primary" onClick={this.props.try_again}>Try Again</button>
                     </div>
                 </div>
             </div>

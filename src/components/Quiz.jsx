@@ -170,31 +170,41 @@ export default class Quiz extends Component {
             ],
             finish: false,
             scores: 0,
-            timer: 30,
+            timer: 25,
             pos: 0,
             i: 0,
             correct_answer: 0,
-            seconds: 1000
+            seconds: 1000,
+            start: false
+        }
+        this._interval= null;
+    }
+
+    componentDidUpdate(){
+        if(this.state.timer == 0){
+            clearInterval(this._interval);
         }
     }
 
     nextQuiz = (id) => {
-            let timer  = setInterval(() => { // set timer 
+        if(!this.state.start){
+            this._interval= setInterval(() => { // set timer 
                 this.setState((state) => ({ // old state // state of first arg is old state, state of second arg is new sate , new state should be function
                     // not function call
-                    timer: state.timer - 1
-                }), () => { // new date
-                    if(this.state.timer == 0){
-                        alert('Full Time!');
-                        this.setState((state)=>({
-                            finish : true
-                        }))
-                    }
-                });
+                        timer: state.timer - 1
+                    }), () => { // new date
+                        if(this.state.timer == 0){
+                            alert('Full Time!');
+                            this.setState((state)=>({
+                                finish : true
+                            }))
+                        }
+                    });
 
-        }, this.state.seconds);
+            }, this.state.seconds);
+        }
 
-        // clearInterval(timer)
+        // clearInterval(timer);
 
         if (this.state.pos < this.state.quizs.length - 1) { // pass to child related index data
             this.setState((state) => ({
@@ -204,7 +214,8 @@ export default class Quiz extends Component {
             ));
         }
         this.setState((state) => ({
-            i: state.i + 1
+            i: state.i + 1,
+            start: true
         }
         ));
         let ans = this.state.quizs[this.state.pos].answers.find(data => { // answer correct check
@@ -221,6 +232,7 @@ export default class Quiz extends Component {
             this.setState((state)=>({
                 finish : true
             }))
+            clearInterval(this._interval);
         }
     }
 
@@ -230,9 +242,10 @@ export default class Quiz extends Component {
             scores: 0,
             pos: 0,
             i: 0,
-            timer : 30,
+            timer : 25,
             correct_answer: 0,
-            seconds : 1000
+            seconds : 1000,
+            start: false
         }))
     }
 
